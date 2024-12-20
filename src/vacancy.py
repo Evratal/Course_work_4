@@ -1,4 +1,6 @@
 class Vacancy:
+    __slots__ = ['id', 'name', 'salary', 'url', 'employer', 'snippet']
+
     def __init__(self, id: str, name: str, salary: dict, url: str, employer: dict, snippet: dict):
         self.id = id
         self.name = name
@@ -11,10 +13,16 @@ class Vacancy:
         """Валидирует значение зарплаты."""
         if salary is None:
             return 0
+
         if isinstance(salary, dict):
-            return salary.get('from', 0) if salary.get('from', 0) >= 0 else 0
+            if salary.get('from', 0) >= 0:
+                return salary  # Возвращаем словарь, если он валиден
+            else:
+                return 0  # Если зарплата некорректная, возвращаем 0
+
         if isinstance(salary, (int, float)) and salary >= 0:
-            return salary
+            return {"from": salary}  # Если это число, возвращаем его как словарь
+
         return 0
 
     def __lt__(self, other):

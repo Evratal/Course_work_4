@@ -17,12 +17,16 @@ Vacancy Management System — это программа для управлен�
 
    ```bash
    git clone https://github.com/Evratal/vacancy-management-system.git
+   ```
+   
 Перейдите в директорию проекта:
-
+```
 cd vacancy-management-system
+```
 Установите необходимые зависимости:
-
+```
 pip install -r requirements.txt
+```
 Использование
 Запустите программу:
 

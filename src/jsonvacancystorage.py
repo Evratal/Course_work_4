@@ -7,16 +7,15 @@ from src.vacancystorage import VacancyStorage
 class JsonVacancyStorage(VacancyStorage):
     def __init__(self, file_path):
         self.file_path = file_path
-        # Убедимся, что файл существует, если нет, создадим пустой файл
-        if not os.path.exists(self.file_path):
-            with open(self.file_path, 'w', encoding='utf-8') as file:
-                json.dump([], file)  # Создаем пустой массив JSON
+        # Создаем или очищаем файл при инициализации
+        with open(self.file_path, 'w', encoding='utf-8') as file:
+            json.dump([], file)  # Записываем пустой список
 
     def add_vacancy(self, vacancy):
         """Добавление вакансии в файл."""
         with open(self.file_path, 'r+', encoding='utf-8') as file:
             data = json.load(file)
-            data.append(vacancy.__dict__)  # Добавляем словарь вакансии
+            data.append(vacancy)  # Добавляем словарь вакансии
             file.seek(0)
             json.dump(data, file, ensure_ascii=False, indent=4)
 
